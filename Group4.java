@@ -4,7 +4,6 @@ import negotiator.Deadline;
 import negotiator.actions.Accept;
 import negotiator.actions.Action;
 import negotiator.actions.Offer;
-import negotiator.bidding.BidDetails;
 import negotiator.boaframework.SortedOutcomeSpace;
 import negotiator.parties.AbstractNegotiationParty;
 import negotiator.session.TimeLineInfo;
@@ -21,14 +20,14 @@ public class Group4 extends AbstractNegotiationParty {
     private static final double MIN_UTILITY = 0.75;
 	Bid bestBid = null;
     int currentRound = 0;
-    int lastRoundForAccepting = 22;
+    int lastRoundForAccepting = 100;
     int average = 0;
     ArrayList<Double> allOfferedUtilitiesToMe = new ArrayList<Double>();
     ArrayList<Bid> allBids = new ArrayList<Bid>();
     HashMap<Double, Bid> bidsAndUtilities = new HashMap<Double, Bid>();
     SortedOutcomeSpace outcomeSpace;
-    List<BidDetails> bids;
-    //HashMap<Bid, Double> bidsAndUtilities = new HashMap<Bid, Double>();
+    Group4BiddingStrategy biddingStrategy;
+    TimeLineInfo tl;
    
     @Override
     public void init(UtilitySpace utilSpace,
@@ -36,10 +35,15 @@ public class Group4 extends AbstractNegotiationParty {
             TimeLineInfo tl,
             long randomSeed,
             AgentID agentId) {
-
     	super.init(utilSpace, dl, tl, randomSeed, agentId);
     	outcomeSpace = new SortedOutcomeSpace(utilitySpace);
-    	bids  = outcomeSpace.getAllOutcomes();
+    	this.tl = tl;
+    	try {
+			biddingStrategy = new Group4BiddingStrategy(outcomeSpace, utilSpace);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     @Override
@@ -50,22 +54,33 @@ public class Group4 extends AbstractNegotiationParty {
             average /= allOfferedUtilitiesToMe.size();
         }*/
 
-        
         if (currentRound <= lastRoundForAccepting) {
             try {
-                return new Offer(this.getBestOffer());
+                return new Offer(biddingStrategy.generateBidFromOutcomeSpace());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (currentRound <= lastRoundForAccepting + 5) {
-        	
-        	//System.out.println(bidsAndUtilities);
-        	
-            double maxValueInMap = (Collections.max(bidsAndUtilities.keySet()));
-            Bid bid = bidsAndUtilities.get(maxValueInMap);
-            return new Offer(bid);
+        } else if (currentRound <= lastRoundForAccepting * 5) {
+        	try {
+				return new Offer(biddingStrategy.getRandomFromOutcomeSpace());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else {
-            return new Accept();
+        	double maxValueInMap = (Collections.max(bidsAndUtilities.keySet()));
+            Bid bid = bidsAndUtilities.get(maxValueInMap);
+            try {
+				if (this.utilitySpace.getUtility(bid) > this.utilitySpace.getUtility(biddingStrategy.generateBidFromOutcomeSpace())) {
+					return new Offer(bid);
+            	} else {
+					Bid offeredBid = bidsAndUtilities.get(maxValueInMap);
+	            	return new Offer(offeredBid);
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         return new Offer(generateRandomBid());
         
@@ -106,21 +121,6 @@ public class Group4 extends AbstractNegotiationParty {
 
     }
 
-    private Bid getBestOffer() throws Exception {
-        if (bestBid == null) {
-        	bestBid = this.utilitySpace.getMaxUtilityBid();
-        } else {
-	        for (int i = 0; i < bids.size(); i++) {
-	        	if (this.utilitySpace.getUtility(bestBid) > this.utilitySpace.getUtility(bids.get(i).getBid())) {
-	        		bestBid = bids.get(i).getBid();
-	        		//bidsAndUtilities.put(this.utilitySpace.getUtility(bestBid), bestBid);
-	        		return bestBid;
-	        	}
-	        }
-	        // System.out.println(bestBid.toString());
-        }
-        return bestBid;
-    }
 
     @Override
     public String getDescription() {
