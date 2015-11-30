@@ -1,3 +1,5 @@
+package negotiator.group4;
+
 import negotiator.AgentID;
 import negotiator.Bid;
 import negotiator.Deadline;
@@ -107,7 +109,6 @@ public class Group4 extends AbstractNegotiationParty {
             Bid lastBid = ((Offer) action).getBid();
             try {
                 this.utilitySpace.getUtility(lastBid);
-                // diger robotların sana sundugu bid icin senin utility degerin
                 if (this.utilitySpace.getUtility(lastBid) >= MIN_UTILITY) {
                 //System.out.println("sender: " + sender + " " + this.utilitySpace.getUtility(lastBid));
                 bidsAndUtilities.put(this.utilitySpace.getUtility(lastBid), lastBid);
@@ -124,18 +125,8 @@ public class Group4 extends AbstractNegotiationParty {
 
     @Override
     public String getDescription() {
-        return "example party group 4";
+        return "Group 4";
     }
 
-    public boolean isBidAcceptable(Bid bidOffered, Bid counterOffer) {
-        try {
-            if (counterOffer != null && utilitySpace.getUtility(bidOffered) >= utilitySpace.getUtility(counterOffer)) {
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 }
