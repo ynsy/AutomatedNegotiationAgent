@@ -1,0 +1,20 @@
+sep=;
+Run time (s);Round;Exception;deadline;Agreement;Discounted;#agreeing;min.util.;max.util.;Dist. to Pareto;Dist. to Nash;Dist. to Social Welfare;Agent 1;Agent 2;Agent 3;Utility 1;Utility 2;Utility 3;Profile 1;Profile 2;Profile 3
+60.000;13376;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@570847925;Group5@871622214;Group1@1077977236;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;15230;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@271350857;Group1@1680991477;Group5@278803388;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;18400;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@521108967;Group4@1797114013;Group5@1436421557;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;11558;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@226718497;Group5@2030289536;Group4@25291895;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@1126833790:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@282637560:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;
+60.000;13889;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@2129214621;Group5@169513596;Group1@1203752427;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;16022;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@221289951;Group1@2033196837;Group5@1596198483;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;22497;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@1166016179;Group4@825719396;Group5@769247504;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;14474;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@1481063132;Group5@739409992;Group4@889285440;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@84306152:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@1436643163:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;
+60.000;15332;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@1411594811;Group5@544926023;Group1@1139606020;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;21014;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@763479477;Group1@1495356064;Group5@1018154323;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;21708;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@648107521;Group4@1376447427;Group5@593535057;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;14362;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@978591640;Group5@1323522152;Group4@1184556592;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@1072114022:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;
+;;failure while running session:java.util.concurrent.ExecutionException: Execution failed of Group5@937082555:java.lang.NoSuchMethodError: negotiator.group5.Group5.getUtilitySpace()Lnegotiator/utility/AbstractUtilitySpace;;;;;;;;;;;;;;;;;;;

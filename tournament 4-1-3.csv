@@ -1,0 +1,20 @@
+sep=;
+Run time (s);Round;Exception;deadline;Agreement;Discounted;#agreeing;min.util.;max.util.;Dist. to Pareto;Dist. to Nash;Dist. to Social Welfare;Agent 1;Agent 2;Agent 3;Utility 1;Utility 2;Utility 3;Profile 1;Profile 2;Profile 3
+60.000;2413;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@1300285738;Group4@960508722;Group1@807476997;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2185;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@245353079;Group1@2048687112;Group4@67593990;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;1313;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@1319933762;Group3@980372037;Group4@1167148060;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;1935;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@1928761844;Group4@101266748;Group3@1743849843;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2096;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@743091730;Group1@1491860374;Group3@1534584209;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2383;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@1625188576;Group3@338951348;Group1@1491855286;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2320;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@911046357;Group4@1115073998;Group1@1760848207;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2241;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@108144919;Group1@1920590707;Group4@69804395;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2274;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@779908565;Group3@1524565226;Group4@961289085;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2400;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@665935689;Group4@1402696608;Group3@2050056706;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2706;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@2079937398;Group1@252704858;Group3@145059256;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2023;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@383858219;Group3@1660579265;Group1@8940250;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2222;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@143322196;Group4@2089798090;Group1@1521840855;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2400;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group3@692283661;Group1@1567074542;Group4@236235136;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2447;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@1829760039;Group3@426714508;Group4@1741821666;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2639;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group1@422297913;Group4@1841284639;Group3@1600205941;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2497;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@136047487;Group1@2082361205;Group3@1561349803;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
+60.000;2471;;60s;No;No;1;0.00000;0.00000;1.16612;1.41191;0.00000;Group4@1123628473;Group3@909549779;Group1@1354287575;0.0;0.0;0.0;party1_utility.xml;party2_utility.xml;party3_utility.xml
