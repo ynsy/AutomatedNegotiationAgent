@@ -18,7 +18,7 @@ import java.util.Random;
  * This is your negotiation party.
  */
 public class Group4 extends AbstractNegotiationParty {
-	private static final double MIN_UTILITY = 0.80;
+	private static final double MIN_UTILITY = 0.75;
 	private static final double TIME_LIMIT = 58;
 	Bid bestBid = null;
 	int currentRound = 0;
@@ -59,6 +59,10 @@ public class Group4 extends AbstractNegotiationParty {
 		}
 		if (timeline.getCurrentTime() < TIME_LIMIT) {
 			System.out.println("current time: " + timeline.getCurrentTime());
+
+			if (this.utilitySpace.getUtility(opponentBid) >= MIN_UTILITY) {
+				return new Accept();
+			}
 			if (currentRound <= lastRoundForAccepting) {
 				try {
 					return new Offer(biddingStrategy.generateBidFromOutcomeSpace());
