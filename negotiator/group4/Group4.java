@@ -5,6 +5,8 @@ import negotiator.actions.Accept;
 import negotiator.actions.Action;
 import negotiator.actions.Offer;
 import negotiator.boaframework.SortedOutcomeSpace;
+import negotiator.issue.Issue;
+import negotiator.issue.Value;
 import negotiator.parties.AbstractNegotiationParty;
 import negotiator.session.TimeLineInfo;
 import negotiator.utility.UtilitySpace;
@@ -19,13 +21,12 @@ import java.util.Random;
  */
 public class Group4 extends AbstractNegotiationParty {
 	private static final double MIN_UTILITY = 0.75;
-	private static final double TIME_LIMIT = 58;
+	private static final double TIME_LIMIT = 55;
 	Bid bestBid = null;
 	int currentRound = 0;
-	int lastRoundForAccepting = 100;
 	int average = 0;
 	Action opponentAction;
-	Bid opponentBid;
+	Bid opponentBid = null;
 	ArrayList<Double> allOfferedUtilitiesToMe = new ArrayList<Double>();
 	ArrayList<Bid> allBids = new ArrayList<Bid>();
 	HashMap<Double, Bid> bidsAndUtilities = new HashMap<Double, Bid>();
@@ -33,6 +34,9 @@ public class Group4 extends AbstractNegotiationParty {
 	Group4BiddingStrategy biddingStrategy;
 	TimeLineInfo tl;
 	Random randGenerator = new Random();
+	int count = 0;
+	boolean initialStep = true;
+	Bid randomValue = null;
 
 	@Override
 	public void init(UtilitySpace utilSpace, Deadline dl, TimeLineInfo tl, long randomSeed, AgentID agentId) {
@@ -49,86 +53,38 @@ public class Group4 extends AbstractNegotiationParty {
 
 	@Override
 	public Action chooseAction(List<Class<? extends Action>> validActions) {
-		currentRound++;
-		/*
-		 * for (double i : allOfferedUtilitiesToMe) { average += i; average /=
-		 * allOfferedUtilitiesToMe.size(); }
-		 */
-		if (this.opponentAction instanceof Offer) {
-			Bid opponentBid = ((Offer) opponentAction).getBid();
+		try {
+			bestBid = biddingStrategy.generateBidFromOutcomeSpace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
-		if (timeline.getCurrentTime() < TIME_LIMIT) {
-			System.out.println("current time: " + timeline.getCurrentTime());
 
-			if (this.utilitySpace.getUtility(opponentBid) >= MIN_UTILITY) {
-				return new Accept();
-			}
-			if (currentRound <= lastRoundForAccepting) {
-				try {
-					return new Offer(biddingStrategy.generateBidFromOutcomeSpace());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (currentRound <= lastRoundForAccepting * 5) {
-				try {
-					return new Offer(biddingStrategy.getRandomFromOutcomeSpace());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		if (initialStep) {
+			initialStep = false;
+			return new Offer(bestBid);
+		} else if (timeline.getCurrentTime() < TIME_LIMIT) {
+			System.out.println("current time: " + timeline.getCurrentTime());
+			Bid bid;
+			double maxValueInMap = 0;
+
+			if (!bidsAndUtilities.isEmpty()) {
+				maxValueInMap = (Collections.max(bidsAndUtilities.keySet()));
+				bid = bidsAndUtilities.get(maxValueInMap);
+				return new Offer(bid);
 			} else {
-				Bid bid;
-				double maxValueInMap = 0;
-				if (!bidsAndUtilities.isEmpty()) {
-					maxValueInMap = (Collections.max(bidsAndUtilities.keySet()));
-					bid = bidsAndUtilities.get(maxValueInMap);
-				} else {
-					try {
-						maxValueInMap = utilitySpace.getUtility(bestBid);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					bid = bidsAndUtilities.get(maxValueInMap);
-				}
-				try {
-					if (this.utilitySpace.getUtility(bid) > this.utilitySpace
-							.getUtility(biddingStrategy.generateBidFromOutcomeSpace())) {
-						return new Offer(bid);
-					} else {
-						Bid offeredBid = bidsAndUtilities.get(maxValueInMap);
-						return new Offer(offeredBid);
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				return new Offer(bestBid);
 			}
 		} else if (isBidAcceptable(opponentBid)) {
-			System.out.println("time is up and if it acceptable accept.");
-			/*
-			 * Object[] values = bidsAndUtilities.values().toArray(); Object
-			 * randomValue = values[randGenerator.nextInt(values.length)];
-			 * return new Offer((Bid) randomValue);
-			 */
 			return new Accept();
-		} else if (getUtility(opponentBid) >= MIN_UTILITY) {
-			return new Accept();
+		} else if (!bidsAndUtilities.isEmpty()) {
+			System.out.println("randomdayým.." + timeline.getCurrentTime());
+			getRandomFromMap();
+			return new Offer(randomValue);
+		} else {
+			System.out.println("abi beste girdim.." + timeline.getCurrentTime());
+			return new Offer(randomValue);
 		}
-		return new Offer(bestBid);
-
 	}
-
-	/**
-	 * All offers proposed by the other parties will be received as a message.
-	 * You can use this information to your advantage, for example to predict
-	 * their utility.
-	 *
-	 * @param sender
-	 *            The party that did the action.
-	 * @param action
-	 *            The action that party did.
-	 */
 
 	@Override
 	public void receiveMessage(Object sender, Action action) {
@@ -136,24 +92,20 @@ public class Group4 extends AbstractNegotiationParty {
 		// Here you hear other parties' messages
 
 		if ((action instanceof Offer)) {
-			Bid lastBid = ((Offer) action).getBid();
+			this.opponentBid = ((Offer) action).getBid();
+			Bid lastBid = Action.getBidFromAction((Action) action);
 			try {
-				this.utilitySpace.getUtility(lastBid);
-				// diger robotlarÄ±n sana sundugu bid icin senin utility degerin
 				if (this.utilitySpace.getUtility(lastBid) >= MIN_UTILITY) {
-					// System.out.println("sender: " + sender + " " +
-					// this.utilitySpace.getUtility(lastBid));
 					bidsAndUtilities.put(this.utilitySpace.getUtility(lastBid), lastBid);
-					// bidsAndUtilities.put(lastBid,
-					// this.utilitySpace.getUtility(lastBid));
-					// System.out.println("last bid: " + lastBid.toString());
+				} else {
+					bidsAndUtilities.put(getUtility(getMinUtilRandomBid()), getMinUtilRandomBid());
+					// bidsAndUtilities.put(getUtility(bestBid), bestBid);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			opponentAction = action;
 		}
-
 	}
 
 	@Override
@@ -162,12 +114,48 @@ public class Group4 extends AbstractNegotiationParty {
 	}
 
 	public boolean isBidAcceptable(Bid bid) {
-		if (!bidsAndUtilities.isEmpty()) {
-			if (getUtility(bid) > Collections.max(bidsAndUtilities.keySet())) {
-				return true;
-			}
+		if (getUtility(bid) >= MIN_UTILITY && getUtility(bid) >= getUtility(randomValue)) {
+			return true;
 		}
 		return false;
 	}
 
+	protected Bid generateRandomBid() {
+		Bid randomBid = null;
+		HashMap<Integer, Value> values = new HashMap<Integer, Value>();
+		ArrayList<Issue> issues = utilitySpace.getDomain().getIssues();
+
+		for (Issue currentIssue : issues) {
+			try {
+				values.put(currentIssue.getNumber(), getRandomValue(currentIssue));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			randomBid = new Bid(utilitySpace.getDomain(), values);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return randomBid;
+	}
+
+	public Bid getMinUtilRandomBid() {
+		Bid b = generateRandomBid();
+		while (true) {
+			b = generateRandomBid();
+			if (getUtility(b) >= MIN_UTILITY) {
+				break;
+			}
+		}
+		return b;
+	}
+
+	public Bid getRandomFromMap() {
+		Random generator = new Random();
+		Object[] values = bidsAndUtilities.values().toArray();
+		randomValue = (Bid) values[generator.nextInt(values.length)];
+		return randomValue;
+	}
 }
